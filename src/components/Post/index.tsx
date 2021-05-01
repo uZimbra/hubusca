@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { Modal, Text } from 'react-native';
 import ShimmerPlaceholder from 'react-native-shimmer-placeholder';
 import userIcon from '../../../assets/user-icon.png';
+import { usePosts } from '../../hooks/pots';
+import { useUsers } from '../../hooks/users';
 import api from '../../services/api';
 import { CloseModal, Container, DeletePost, Header, HeaderText, DeletePostText, ImageContainer, ModalButtons, ModalContainer, PostBody, PostTitle, UserImage, UserInfo } from './styles';
 
@@ -13,47 +15,21 @@ type Post = {
   body: string;
 }
 
-type User = {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-  address: {
-    street: string;
-    suite: string;
-    city: string;
-    zipcode: string;
-    geo: {
-      lat: string;
-      lng: string;
-    }
-  }
-  phone: string;
-  website: string;
-  company: {
-    name: string;
-    catchPhrase: string;
-    bs: string;
-  }
-}
+
 
 const Post: React.FC<Post> = ({ userId, id, title, body }: Post ) => {
   const navigation = useNavigation();
-  const [user, setUser] = useState<User>();
+  const { users } = useUsers();
+  const { deletePost } = usePosts();
   const [modalVisibility, setModalVisibility] = useState(false);
 
-  useEffect(() => {
-    async function fetchData() {
-      const response = await api.get(`users/${userId}`);
-
-      setUser(response.data)
-    }
-
-    fetchData()
-  }, []);
 
   async function handleDeletePress(event) {
-    await api.delete(`posts/${id}`);
+    const response = await api.delete(`posts/${id}`);
+
+    if (response.status === 200) {
+      deletePost(id);
+    }
   }
 
   return (
@@ -74,13 +50,13 @@ const Post: React.FC<Post> = ({ userId, id, title, body }: Post ) => {
                 setModalVisibility(!modalVisibility)
                 navigation.navigate('Profile')
               }}>
-                { user && user.username }
+                { users && users[userId].username }
               </HeaderText>
               <HeaderText secondary onPress={() => {
                 setModalVisibility(!modalVisibility)
                 navigation.navigate('Profile')
               }}>
-                { user && user.name }
+                { users && users[userId].name }
               </HeaderText>
             </UserInfo>
           </Header>
@@ -109,24 +85,24 @@ const Post: React.FC<Post> = ({ userId, id, title, body }: Post ) => {
             <UserImage resizeMode="contain" source={userIcon}/>
           </ImageContainer>
           <UserInfo>
-            <ShimmerPlaceholder visible={!!user}>
+            <ShimmerPlaceholder visible={!!users}>
               <HeaderText primary onPress={() => navigation.navigate('Profile')}>
-                { user && user.username }
+                { users && users[userId].username }
               </HeaderText>
             </ShimmerPlaceholder >
-            <ShimmerPlaceholder visible={!!user}>
+            <ShimmerPlaceholder visible={!!users}>
               <HeaderText secondary onPress={() => navigation.navigate('Profile')}>
-                { user && user.name }
+                { users && users[userId].name }
               </HeaderText>
             </ShimmerPlaceholder >
           </UserInfo>
         </Header>
-        <ShimmerPlaceholder visible={!!user}>
+        <ShimmerPlaceholder visible={!!users}>
           <PostTitle onPress={() => setModalVisibility(!modalVisibility)}>
             { title }
           </PostTitle>
         </ShimmerPlaceholder >
-        <ShimmerPlaceholder visible={!!user}>
+        <ShimmerPlaceholder visible={!!users}>
           <PostBody onPress={() => setModalVisibility(!modalVisibility)}>
             { body }
           </PostBody>

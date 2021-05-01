@@ -36,7 +36,17 @@ export const SearchInput = styled.TextInput.attrs({
 
 export const PostsContainer = styled.View`
   width: 97%;
-  height: 80%;
+  height: 77%;
 `
 
+export const NumberOfPostsContainer = styled.View`
+  padding: 10px 10px;
 
+  width: 100%;
+  align-items: flex-end;
+`
+
+export const NumberOfPostsText = styled.Text`
+  color: #909090;
+  font-size: 12px;
+`

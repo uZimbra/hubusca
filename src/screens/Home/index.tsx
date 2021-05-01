@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Logo, PostsContainer, SearchBar, SearchInput } from './styles';
+import { Container, Logo, NumberOfPostsContainer, NumberOfPostsText, PostsContainer, SearchBar, SearchInput } from './styles';
 import logo from '../../../assets/logo.png'
 import { MaterialIcons } from '@expo/vector-icons'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { FlatList } from 'react-native';
-import api from '../../services/api';
 import Post from '../../components/Post';
+import { usePosts } from '../../hooks/pots';
 
-type PostType = {
+type Posts = {
   userId: number;
   id: number;
   title: string;
@@ -15,18 +15,12 @@ type PostType = {
 }
 
 const Home: React.FC = () => {
-  const [posts, setPosts] = useState<PostType[]>([]);
-  const [filteredPosts, setFilteredPosts] = useState<PostType[]>([]);
+  const { posts } = usePosts();
+  const [filteredPosts, setFilteredPosts] = useState<Posts[]>([]);
 
   useEffect(() => {
-    async function fetchData() {
-      const response = await api.get('posts');
-
-      setPosts(response.data)
-      setFilteredPosts(response.data)
-    }
-    fetchData()
-  }, [])
+    setFilteredPosts(posts)
+  }, [posts])
 
   function handleSearchBar(value) {
     const filteredData = posts.filter(post => post.body.toLocaleLowerCase().match(value.toLocaleLowerCase()));
@@ -57,6 +51,9 @@ const Home: React.FC = () => {
           }
         />
       </PostsContainer>
+      <NumberOfPostsContainer>
+        <NumberOfPostsText>Number of posts: { filteredPosts.length }</NumberOfPostsText>
+      </NumberOfPostsContainer>
     </Container>
   )
 }
