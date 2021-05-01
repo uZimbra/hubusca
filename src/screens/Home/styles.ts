@@ -1,11 +1,14 @@
 import styled, { css } from 'styled-components/native';
 import Constants from 'expo-constants';
 
+export const ScreenBackground = styled.View`
+  flex: 1;
+	background: #f0f0f5;
+`
+
 export const Container = styled.View`
   flex: 1;
-	margin: 0 20px;
-	margin-top: ${ Constants.statusBarHeight}px;
-	background: #f0f0f5;
+	margin: ${Constants.statusBarHeight}px 20px;
 	padding-bottom: 5px;
   align-items: center;
 `;
@@ -35,8 +38,9 @@ export const SearchInput = styled.TextInput.attrs({
 `
 
 export const PostsContainer = styled.View`
-  width: 97%;
-  height: 77%;
+  width: 95%;
+  height: 75%;
+  border-radius: 5px;
 `
 
 export const NumberOfPostsContainer = styled.View`

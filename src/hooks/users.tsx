@@ -27,6 +27,7 @@ type User = {
 
 type UsersContextData = {
   users: User[];
+  getUser(userId: number): User;
 }
 
 const UsersContext = createContext<UsersContextData>({} as UsersContextData);
@@ -44,8 +45,14 @@ export const UserProvider: React.FC = ({ children }) => {
     fetchData()
   }, []);
 
+  function getUser(userId: number) {
+    const [ filteredUser ] = users.filter(user => user.id === userId);
+
+    return filteredUser;
+  }
+
   return (
-    <UsersContext.Provider value ={{ users }}>
+    <UsersContext.Provider value ={{ users, getUser }}>
       { children }
     </UsersContext.Provider>
   )
