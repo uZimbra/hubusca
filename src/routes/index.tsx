@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Home from '../screens/Home';
 import Profile from '../screens/Profile';
+import NewPost from '../screens/NewPost';
 
 const Stack = createStackNavigator()
 
@@ -15,6 +16,7 @@ const AppRoutes: React.FC = () => (
     >
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="NewPost" component={NewPost} />
     </Stack.Navigator>
   </NavigationContainer>
 )

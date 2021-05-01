@@ -23,15 +23,18 @@ type Posts = {
 }
 
 const Profile: React.FC<Params> = ({ route }: Params) => {
+  const userId = route.params.userId;
+
   const navigation = useNavigation();
-  const { users } = useUsers();
+  const { getUser } = useUsers();
   const { posts } = usePosts();
-  const user = route.params.userId;
+
+  const user = getUser(userId);
 
   const [userPosts, setUserPosts] = useState<Posts[]>([]);
 
   useEffect(() => {
-    const filteredPosts = posts.filter(post => post.userId === user);
+    const filteredPosts = posts.filter(post => post.userId === user.id);
 
     setUserPosts(filteredPosts);
   }, [posts])
@@ -44,12 +47,12 @@ const Profile: React.FC<Params> = ({ route }: Params) => {
             <AntDesign name="arrowleft" size={24} color="#696969" />
           </BackArrow>
           <UserAvatar resizeMode='contain' source={UserIcon} />
-          <UserUsername>{ users[user].username }</UserUsername>
-          <UserName>{ users[user].name }</UserName>
-          <UserEmail>Email: { users[user].email }</UserEmail>
-          <UserInfo>Phone: { users[user].phone }</UserInfo>
-          <UserInfo>Website: { users[user].website }</UserInfo>
-          <UserInfo Address>Address: {`${users[user].address.street}, ${users[user].address.suite} - ${users[user].address.city}, ${users[user].address.zipcode}`}</UserInfo>
+          <UserUsername>{ user.username }</UserUsername>
+          <UserName>{ user.name }</UserName>
+          <UserEmail>Email: { user.email }</UserEmail>
+          <UserInfo>Phone: { user.phone }</UserInfo>
+          <UserInfo>Website: { user.website }</UserInfo>
+          <UserInfo Address>Address: {`${user.address.street}, ${user.address.suite} - ${user.address.city}, ${user.address.zipcode}`}</UserInfo>
         </UserContainer>
         <PostsContainer>
           <FlatList
@@ -67,7 +70,7 @@ const Profile: React.FC<Params> = ({ route }: Params) => {
           />
         </PostsContainer>
         <PostsCounter>Number of posts: {userPosts.length}</PostsCounter>
-        <NewPostButton>
+        <NewPostButton onPress={() => navigation.navigate({ name: 'NewPost', params: { user }})}>
           <AntDesign name="plus" size={24} color="white" />
         </NewPostButton>
       </Container>
