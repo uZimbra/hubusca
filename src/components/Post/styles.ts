@@ -8,8 +8,13 @@ export const Container = styled.View`
   border-radius: 4px;
 `;
 
+export const ModalBackground = styled.View`
+  background-color: rgba(0, 0, 0, 0.3);
+  flex: 1;
+`
+
 export const ModalContainer = styled.View`
-  margin-top: 50%;
+  margin: auto;
   padding: 20px;
   margin-left: 10px;
   margin-right: 10px;
@@ -71,22 +76,22 @@ export const PostBody = styled.Text`
 
 export const ModalButtons = styled.View`
   width: 100%;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-direction: row;
   padding: 10px 0;
 `
 
 export const CloseModal = styled.TouchableOpacity`
-  width: 150px;
-  height: 50px;
+  width: 120px;
+  height: 40px;
   border-radius: 4px;
   align-items: center;
   justify-content: center;
   background-color: #E5E5E5;
 `
 export const DeletePost = styled.TouchableOpacity`
-  width: 150px;
-  height: 50px;
+  width: 120px;
+  height: 40px;
   border-radius: 4px;
   align-items: center;
   justify-content: center;

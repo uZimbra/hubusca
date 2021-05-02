@@ -9,7 +9,6 @@ export const ScreenBackground = styled.View`
 
 export const Container = styled.View`
   flex: 1;
-  /* margin: ${Constants.statusBarHeight}px 20px; */
 	padding-bottom: 5px;
   align-items: center;
 `
@@ -26,13 +25,13 @@ export const UserContainer = styled.View`
   height: 45%;
   align-items: center;
   border-radius: 4px;
-  background-color: #F9F9F9;
+  background-color: #Fff;
 `
 
 export const UserAvatar = styled.Image`
   margin: 12px 0;
-  width: 100px;
-  height: 100px;
+  width: 60px;
+  height: 60px;
 `
 
 export const UserUsername = styled.Text`

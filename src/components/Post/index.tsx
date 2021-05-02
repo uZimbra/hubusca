@@ -2,10 +2,10 @@ import { useNavigation } from '@react-navigation/core';
 import React, { useState } from 'react';
 import { Modal, Text } from 'react-native';
 import userIcon from '../../../assets/user-icon.png';
-import { usePosts } from '../../hooks/pots';
+import { usePosts } from '../../hooks/posts';
 import { useUsers } from '../../hooks/users';
 import api from '../../services/api';
-import { CloseModal, Container, DeletePost, DeletePostText, Header, HeaderText, ImageContainer, ModalButtons, ModalContainer, PostBody, PostTitle, UserImage, UserInfo } from './styles';
+import { CloseModal, Container, DeletePost, DeletePostText, Header, HeaderText, ImageContainer, ModalBackground, ModalButtons, ModalContainer, PostBody, PostTitle, UserImage, UserInfo } from './styles';
 
 type Post = {
   userId: number;
@@ -36,7 +36,9 @@ const Post: React.FC<Post> = ({ userId, id, title, body }: Post ) => {
         visible={modalVisibility} 
         animationType="fade"
         transparent
+        onRequestClose={() => setModalVisibility(!modalVisibility)}
       >
+        <ModalBackground>
         <ModalContainer>
         <Container modal>
           <Header>
@@ -88,6 +90,7 @@ const Post: React.FC<Post> = ({ userId, id, title, body }: Post ) => {
           </DeletePost>
         </ModalButtons>
       </ModalContainer>
+      </ModalBackground>
       </Modal>
       <Container>
         <Header>

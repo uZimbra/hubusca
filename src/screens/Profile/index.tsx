@@ -4,7 +4,7 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import UserIcon from '../../../assets/user-icon.png';
 import Post from '../../components/Post';
-import { usePosts } from '../../hooks/pots';
+import { usePosts } from '../../hooks/posts';
 import { useUsers } from '../../hooks/users';
 import { BackArrow, Container, NewPostButton, PostsContainer, PostsCounter, ScreenBackground, UserAvatar, UserContainer, UserEmail, UserInfo, UserName, UserUsername } from './styles';
 interface Params extends ReactElement {
@@ -70,7 +70,11 @@ const Profile: React.FC<Params> = ({ route }: Params) => {
           />
         </PostsContainer>
         <PostsCounter>Number of posts: {userPosts.length}</PostsCounter>
-        <NewPostButton onPress={() => navigation.navigate({ name: 'NewPost', params: { user }})}>
+        <NewPostButton onPress={() => navigation.navigate({ 
+            name: 'NewPost', 
+            params: { userId }}
+          )}
+        >
           <AntDesign name="plus" size={24} color="white" />
         </NewPostButton>
       </Container>

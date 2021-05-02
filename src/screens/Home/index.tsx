@@ -4,7 +4,7 @@ import { FlatList } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import logo from '../../../assets/logo.png';
 import Post from '../../components/Post';
-import { usePosts } from '../../hooks/pots';
+import { usePosts } from '../../hooks/posts';
 import { Container, Logo, NumberOfPostsContainer, NumberOfPostsText, PostsContainer, ScreenBackground, SearchBar, SearchInput } from './styles';
 
 type Posts = {

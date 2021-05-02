@@ -20,7 +20,6 @@ export const Logo = styled.Image`
 `;
 
 export const SearchBar = styled.View`
-  width: 95%;
   height: 40px;
   margin: 18px 0;
   border-radius: 30px;
@@ -38,7 +37,6 @@ export const SearchInput = styled.TextInput.attrs({
 `
 
 export const PostsContainer = styled.View`
-  width: 95%;
   height: 75%;
   border-radius: 5px;
 `
